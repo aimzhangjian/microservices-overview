@@ -36,9 +36,9 @@
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="微服务架构概述 1.0.0 documentation" href="../../index.html"/>
-        <link rel="up" title="微服务简介" href="introduction.html"/>
+        <link rel="up" title="Spring Cloud" href="introduction.html"/>
         <link rel="next" title="Spring Cloud Eureka" href="../02.eureka/eureka.html"/>
-        <link rel="prev" title="微服务简介" href="introduction.html"/> 
+        <link rel="prev" title="Spring Cloud" href="introduction.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -94,7 +94,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">概述</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../spring-cloud.html">Spring Cloud</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="introduction.html">微服务简介</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="introduction.html">Spring Cloud</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">1. 简介</a></li>
 </ul>
 </li>
@@ -152,7 +152,7 @@
         
           <li><a href="../spring-cloud.html">Spring Cloud</a> &raquo;</li>
         
-          <li><a href="introduction.html">微服务简介</a> &raquo;</li>
+          <li><a href="introduction.html">Spring Cloud</a> &raquo;</li>
         
       <li>1. 简介</li>
     
@@ -176,7 +176,20 @@
   <div class="section" id="id1">
 <h1>1. 简介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>Spring Cloud是一个基于Spring Boot实现的微服务架构开发工具。给出了在实际应用中出现各种问题的解决方案和开源框架。</p>
+<img alt="../../_images/spring_cloud.png" src="../../_images/spring_cloud.png" />
 <p>基础组件:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Spring Cloud Eureka: 服务治理组件,包含服务注册中心、服务注册与发现机制的实现。</li>
+<li>Spring Cloud Hystrix: 容错管理组件，实现断路器模式，帮助服务依赖中出现的延迟和为故障提供强大的容错能力。</li>
+<li>Spring Cloud Ribbon: 客户端负载均衡的服务调用组件。</li>
+<li>Spring Cloud Feign: 基于Ribbon和Hystrix的声明式服务调用组件。</li>
+<li>Spring Cloud Zuul: 网关组件，提供智能路由、访问过滤等功能。</li>
+<li>Spring Cloud Stream: 消息驱动事件模型。</li>
+<li>Spring Cloud Security: 安全工具包，提供Zull代理中对OAuth2请求对中继器。</li>
+<li>Spring Cloud Config: 配置管理工具，可以实现应用配置的外部化存储，并支持配置信息刷新、加密/解密。</li>
+</ul>
+</div></blockquote>
 </div>
 
 
@@ -192,7 +205,7 @@
         <a href="../02.eureka/eureka.html" class="btn btn-neutral float-right" title="Spring Cloud Eureka" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="introduction.html" class="btn btn-neutral" title="微服务简介" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="introduction.html" class="btn btn-neutral" title="Spring Cloud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

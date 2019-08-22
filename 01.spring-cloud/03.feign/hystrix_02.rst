@@ -6,14 +6,14 @@ Spring Cloud Hystrix具备服务降级、服务熔断、线程和信号隔离、
 快速入门
 --------------------------------------
 
-1.创建一个Spring boot项目，命名为hello-service，在pom.xml中添加Hystrix依赖:
+1.创建一个Spring boot项目，命名为hello-service，在pom.xml中添加Hystrix依赖::
   
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-hystrix</artifactId>
     </dependency>
 
-2.在主类中使用@EnableCircuitBreaker注解开启断路器功能:
+2.在主类中使用@EnableCircuitBreaker注解开启断路器功能::
 
     @EnableCircuitBreaker
     @EnableDiscoveryClient
@@ -23,15 +23,19 @@ Spring Cloud Hystrix具备服务降级、服务熔断、线程和信号隔离、
         @Bean
         @LoadBalanced
         RestTemplate restTemplate(){
+
             return new RestTemplate;
+
         }
 
         public static void main(String[] args){
+
             SpringApplication.run(ConsumerApplication.class, args);
+
         }
     }
 
-3.添加服务方法,@HystrixCommand启动熔断功能，fallbackMethod指定服务降级调用方法，当调用服务发生故障或长时间未响应将调用服务降级方法，做后续处理:
+3.添加服务方法,@HystrixCommand启动熔断功能，fallbackMethod指定服务降级调用方法，当调用服务发生故障或长时间未响应将调用服务降级方法，做后续处理::
 
     @Service
     public class HelloService{
@@ -41,10 +45,13 @@ Spring Cloud Hystrix具备服务降级、服务熔断、线程和信号隔离、
 
         @HystrixCommand(fallbackMethod = "helloFallback")
         public String helloService(){
+
             return restTemplate.getForEntity("http://HELLO-SERVICE/hello", String.class).getBody();
+            
         }
 
         public String helloFallback(){
+
             return "error";
         }
 
@@ -74,12 +81,8 @@ hystrix.command.default.execution.timeout.enabled: 设置是否启用超时时�
 
 hystrix.command.default.fallback.enabled: 是否启用服务降级策略，默认为true。
 
-hystrix.threadpool.default.coreSize: 执行命令线程池的核心线程数，即命令执行的最大并发数。默认值为10
+hystrix.threadpool.default.coreSize: 执行命令线程池的核心线程数，即命令执行的最大并发数。默认值为10。
 
-hystrix.threadpool.default.maximumSize: 最大执行线程数
+hystrix.threadpool.default.maximumSize: 最大执行线程数。
 
 hystrix.threadpool.default.maxQueueSize: 设置线程池最大队列大小。当为-1使用SynchronousQueue实现的队列，否则使用LinekedBlockingQueue实现的队列。
-
-
-
-

@@ -6,14 +6,14 @@ Spring Cloud Feign整合了Spring Cloud Ribbon与Spring Cloud Hystrix，除提�
 快速入门
 --------------------------------------
 
-1.创建一个Spring boot项目，命名为hello-service，在pom.xml中添加Hystrix依赖:
+1.创建一个Spring boot项目，命名为hello-service，在pom.xml中添加Hystrix依赖::
   
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-feign</artifactId>
     </dependency>
 
-2.在主类中使用@EnableFeignClients注解开启Feign功能支持:
+2.在主类中使用@EnableFeignClients注解开启Feign功能支持::
 
     @EnableFeignClients
     @EnableDiscoveryClient
@@ -21,12 +21,14 @@ Spring Cloud Feign整合了Spring Cloud Ribbon与Spring Cloud Hystrix，除提�
     public class ConsumerApplication{
 
         public static void main(String[] args){
+
             SpringApplication.run(ConsumerApplication.class, args);
+
         }
 
     }
 
-3.定义SslmRemoteService接口，通过@FeignClient的value属性指定服务名来绑定服务，fallback属性指定服务降级调用方法类，path属性指定公共的URL:
+3.定义SslmRemoteService接口，通过@FeignClient的value属性指定服务名来绑定服务，fallback属性指定服务降级调用方法类，path属性指定公共的URL::
 
     @FeignClient(value = "srm-supplier-lifecycle", fallback = SslmRemoteServiceFallback.class, path = "/v1/{organizationId}")
     public interface SslmRemoteService{
@@ -45,7 +47,7 @@ Spring Cloud Feign整合了Spring Cloud Ribbon与Spring Cloud Hystrix，除提�
 
     }
 
-4.定义SslmRemoteServiceFallback回调方法类
+4.定义SslmRemoteServiceFallback回调方法类::
 
     @Component
     @SuppressWarnings("all")
@@ -72,6 +74,7 @@ Ribbon配置
 
 Hystrix配置
 ---------------------------------------
+
     feign.hystrix.enabled: 设置是否开启Feign 客户端Hystrix支持。
 
 禁用Hystrix配置
@@ -79,7 +82,7 @@ Hystrix配置
 
 除通过feign.hystrix.enabled设置外还可针对服务客户端关闭Hystrix支持
 
-1.创建关闭Hystrix配置类
+1.创建关闭Hystrix配置类::
 
     @Configuration
     public class DisableHystrixConfiguration{
@@ -92,7 +95,7 @@ Hystrix配置
 
     }
 
-2.通过@FeignClient注解中，configuration参数引入配置
+2.通过@FeignClient注解中，configuration参数引入配置::
 
     @FeignClient(value = "hello-service", configuration = DisableHystrixConfiguration.class)
     public interface HelloService{

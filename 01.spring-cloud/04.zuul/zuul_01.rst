@@ -7,7 +7,7 @@ API网关作为微服务系统提供对外资源的入口，起到了对服务�
 ======================================
 .. image:: ./image/zuul.jpeg
 
-1.创建一个Spring Boot工程，命名为api-gateway，并在pom.xml中添加如下依赖:
+1.创建一个Spring Boot工程，命名为api-gateway，并在pom.xml中添加如下依赖::
 
     <dependency>
         <groupId>org.springframework.cloud</groupId>
@@ -23,7 +23,7 @@ API网关作为微服务系统提供对外资源的入口，起到了对服务�
         spring-cloud-starter-ribbon: 网关服务在进行路由转发时实现负载均衡
         spring-cloud-starter-actuator: 提供微服务管理端点。Zuul还提供了/routes端点返回当前所有路由规则
 
-2.创建主类
+2.创建主类::
 
     @EnableZuulProxy
     @SpringBootApplication
@@ -52,7 +52,7 @@ zuul.routes.<route>.retryable: 设置指定路由是否关闭请求重试
 请求过滤
 -----------------------------------------
 
-1.添加zuul过滤器类。继承ZuulFiter:
+1.添加zuul过滤器类。继承ZuulFiter::
 
     /**
     * 添加token和label到请求header
@@ -115,7 +115,7 @@ zuul.routes.<route>.retryable: 设置指定路由是否关闭请求重试
             return null;
         }
 
-2.将过滤器添加到IOC容器中，创建配置类:
+2.将过滤器添加到IOC容器中，创建配置类::
 
     /**
     * 自定义configuration配置类
