@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. 简介 &mdash; 微服务架构概述 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="微服务架构概述 1.0.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Spring Cloud Zuul" href="zuul.html"/>
+        <link rel="next" title="Spring Cloud Config" href="../05.config/config.html"/>
+        <link rel="prev" title="Spring Cloud Zuul" href="zuul.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> 微服务架构概述
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">概述</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../spring-cloud.html">Spring Cloud</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">微服务简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02.eureka/eureka.html">Spring Cloud Eureka</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03.feign/feign.html">Spring Cloud Ribbon</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="zuul.html">Spring Cloud Zuul</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. 简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2. 快速入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 常用配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">3.1. 请求路由</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">3.2. 请求过滤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">3.3. 路径匹配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">3.4. 路由前缀</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cookie">3.5. Cookie与头信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id26">3.6. 重定向问题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../05.config/config.html">Spring Cloud Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06.bus/bus.html">Spring Cloud Bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../07.stream/stream.html">Spring Cloud Stream</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">微服务架构概述</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../spring-cloud.html">Spring Cloud</a> &raquo;</li>
+        
+          <li><a href="zuul.html">Spring Cloud Zuul</a> &raquo;</li>
+        
+      <li>1. 简介</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/01.spring-cloud/04.zuul/zuul_01.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>1. 简介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>API网关作为微服务系统提供对外资源的入口，起到了对服务资源进行统一管理的作用。除了要实现请求路由、负载均衡、校验过滤等功能外，还需要与服务治理框架结合、请求转发时的熔断机制、服务聚合等。Spring cloud Zuul是spring微服务架构提供的API网关解决方案，它通过与Eureka注册中心整合，可以方便的获取到系统中的服务信息。Zuul作为微服务系统的入口可以方便的管理服务资源，对请求进行统一的管理，可以添加拦截校验等逻辑。</p>
+</div>
+<div class="section" id="id2">
+<h1>2. 快速入门<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<img alt="../../_images/zuul.jpeg" src="../../_images/zuul.jpeg" />
+<p>1.创建一个Spring Boot工程，命名为api-gateway，并在pom.xml中添加如下依赖:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&lt;dependency&gt;</dt>
+<dd>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+&lt;artifactId&gt;spring-cloud-starter-zuul&lt;/artifactId&gt;</dd>
+</dl>
+<p>&lt;/dependency&gt;
+&lt;dependency&gt;</p>
+<blockquote>
+<div>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+&lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;</div></blockquote>
+<p>&lt;/dependency&gt;</p>
+<dl class="docutils">
+<dt>spring-cloud-starter-zuul除包含zuul-core外还包括:</dt>
+<dd>spring-cloud-starter-hystrix: 该依赖主要实现对网关服务转发的保护机制，通过线程隔离和断路器，防止微服务故障引发API网关资源无法释放。
+spring-cloud-starter-ribbon: 网关服务在进行路由转发时实现负载均衡
+spring-cloud-starter-actuator: 提供微服务管理端点。Zuul还提供了/routes端点返回当前所有路由规则</dd>
+</dl>
+</div></blockquote>
+<p>2.创建主类</p>
+<blockquote>
+<div><p>&#64;EnableZuulProxy
+&#64;SpringBootApplication
+public class GatewayApplication {</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>public static void main(String[] args) {</dt>
+<dd>SpringApplication.run(GatewayApplication.class, args);</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h1>3. 常用配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id4">
+<h2>3.1. 请求路由<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>zuul.routes.&lt;自定义路由名&gt;.path: 设置请求匹配路由
+zuul.routes.&lt;自定义路由名&gt;.serviceId: 设置匹配路由将会发送到的微服务
+zuul.routes.&lt;自定义路由名&gt;.url: 设置匹配路由将会发送到的url
+zuul.ignored-services: 设置匹配表达式的Service Zuul将不会建立默认路由规则
+zuul.ignored-patterns: 设置忽略匹配路径
+zuul.retryable: 设置全局是否关闭请求重试
+zuul.routes.&lt;route&gt;.retryable: 设置指定路由是否关闭请求重试</p>
+</div>
+<div class="section" id="id5">
+<h2>3.2. 请求过滤<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>1.添加zuul过滤器类。继承ZuulFiter:</p>
+<blockquote>
+<div><p>/**
+* 添加token和label到请求header
+*
+* &#64;author flyleft
+<a href="#id6"><span class="problematic" id="id7">*</span></a>/
+public class HeaderWrapperFilter extends ZuulFilter {</p>
+<blockquote>
+<div><p>private static final Logger LOGGER = LoggerFactory.getLogger(HeaderWrapperFilter.class);</p>
+<p>private GatewayProperties gatewayHelperProperties;</p>
+<dl class="docutils">
+<dt>public HeaderWrapperFilter(GatewayProperties gatewayHelperProperties) {</dt>
+<dd>this.gatewayHelperProperties = gatewayHelperProperties;</dd>
+</dl>
+<p>}</p>
+<p>private static final int HEADER_WRAPPER_FILTER = -1;</p>
+<dl class="docutils">
+<dt>/**</dt>
+<dd><ul class="first simple">
+<li>过滤器类型，决定过滤器在那个生命周期中执行。pre表示在被路由之前执行，route表示在路由请求时被调用，post表示在route和error过滤器之后被调用，error表示处理请求发生错误时被调用</li>
+</ul>
+<p class="last"><a href="#id8"><span class="problematic" id="id9">*</span></a>/</p>
+</dd>
+</dl>
+<p>&#64;Override
+public String filterType() {</p>
+<blockquote>
+<div>return “pre”;</div></blockquote>
+<p>}</p>
+<dl class="docutils">
+<dt>/**</dt>
+<dd><a href="#id10"><span class="problematic" id="id11">*</span></a>过滤器执行顺序，值越小优先级越高
+<a href="#id12"><span class="problematic" id="id13">*</span></a>/</dd>
+</dl>
+<p>&#64;Override
+public int filterOrder() {</p>
+<blockquote>
+<div>return 0;</div></blockquote>
+<p>}</p>
+<dl class="docutils">
+<dt>/**</dt>
+<dd><a href="#id14"><span class="problematic" id="id15">*</span></a>过滤器是否需要被执行
+<a href="#id16"><span class="problematic" id="id17">*</span></a>/</dd>
+</dl>
+<p>&#64;Override
+public boolean shouldFilter() {</p>
+<blockquote>
+<div>return true;</div></blockquote>
+<p>}</p>
+<dl class="docutils">
+<dt>/**</dt>
+<dd><a href="#id18"><span class="problematic" id="id19">*</span></a>过滤器的具体逻辑
+<a href="#id20"><span class="problematic" id="id21">*</span></a>/</dd>
+</dl>
+<p>&#64;Override
+public Object run() {</p>
+<blockquote>
+<div><p>RequestContext ctx = RequestContext.getCurrentContext();
+HttpServletRequest request = ctx.getRequest();
+String token = (String) request.getAttribute(HEADER_JWT);
+if (StringUtils.isEmpty(token)) {</p>
+<blockquote>
+<div>LOGGER.info(“Request get empty jwt , request uri: {} method: {}”, request.getRequestURI(), request.getMethod());</div></blockquote>
+<dl class="docutils">
+<dt>} else {</dt>
+<dd><p class="first">ctx.addZuulRequestHeader(HEADER_TOKEN, token);
+if (gatewayHelperProperties.isEnabledJwtLog()) {</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>LOGGER.info(“Request get jwt , request uri: {} method: {} JWT: {}”,</dt>
+<dd>request.getRequestURI(), request.getMethod(), token);</dd>
+</dl>
+</div></blockquote>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>}
+return null;</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+</div></blockquote>
+<p>2.将过滤器添加到IOC容器中，创建配置类:</p>
+<blockquote>
+<div><p>/**
+* 自定义configuration配置类
+*
+* &#64;author flyleft
+<a href="#id22"><span class="problematic" id="id23">*</span></a>/
+&#64;Configuration
+&#64;EnableConfigurationProperties(GatewayProperties.class)
+public class CustomZuulConfig {</p>
+<blockquote>
+<div><p>&#64;Bean
+public HeaderWrapperFilter headerWrapperFilter(GatewayProperties gatewayHelperProperties) {</p>
+<blockquote>
+<div>return new HeaderWrapperFilter(gatewayHelperProperties);</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+</div>
+<div class="section" id="id24">
+<h2>3.3. 路径匹配<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<p>路径匹配当匹配到一个满足路径表达式时匹配结束。因此需要保证配置文件读取到有序，需要使用YAML配置文件</p>
+<blockquote>
+<div>?: 表示匹配任意单个字符
+<em>: 表示匹配任意数量的字符
+*</em>: 表示匹配任意数量的字符，支持多级目录</div></blockquote>
+</div>
+<div class="section" id="id25">
+<h2>3.4. 路由前缀<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>zuul.prefix: 为全局的路由规则设置前缀信息
+zuul.stripPrefix: 关闭移除代理前缀的动作
+zuul.routes.&lt;route&gt;.strip-prefix: 关闭指定路由移除代理前缀动作</div></blockquote>
+</div>
+<div class="section" id="cookie">
+<h2>3.5. Cookie与头信息<a class="headerlink" href="#cookie" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>zuul.sensitiveHeaders: 设置Zuul的敏感头信息，默认包括Cookie、Set-Cookie、Authorization。设置为敏感头信息的内容将在路由时被网关过滤。
+zuul.routes.&lt;router&gt;.customSensitiveHeaders: 设置指定路由开启自定义敏感头，将去除默认敏感头设置
+zuul.routes.&lt;router&gt;.sensitiveHeaders: 设置指定路由的敏感头</div></blockquote>
+</div>
+<div class="section" id="id26">
+<h2>3.6. 重定向问题<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
+<p>系统内部重定向跳转，Location指向具体服务实例地址，导致请求没有通过网关控制。</p>
+<blockquote>
+<div>zuul.addHostHeader: 设置请求转发前设置Host头信息，标识最初的服务端请求地址。</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../05.config/config.html" class="btn btn-neutral float-right" title="Spring Cloud Config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="zuul.html" class="btn btn-neutral" title="Spring Cloud Zuul" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright .
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
