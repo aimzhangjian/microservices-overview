@@ -92,9 +92,9 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">微服务</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../spring-cloud.html">Spring Cloud</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">微服务简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">Spring Cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02.eureka/eureka.html">Spring Cloud Eureka</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03.feign/feign.html">Spring Cloud feign</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="zuul.html">Spring Cloud Zuul</a><ul class="current">
@@ -103,10 +103,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#id3">3. 常用配置</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id4">3.1. 请求路由</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id5">3.2. 请求过滤</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id24">3.3. 路径匹配</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id25">3.4. 路由前缀</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">3.3. 路径匹配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">3.4. 路由前缀</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cookie">3.5. Cookie与头信息</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id26">3.6. 重定向问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">3.6. 重定向问题</a></li>
 </ul>
 </li>
 </ul>
@@ -191,184 +191,173 @@
 <h1>2. 快速入门<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <img alt="../../_images/zuul.jpeg" src="../../_images/zuul.jpeg" />
 <p>1.创建一个Spring Boot工程，命名为api-gateway，并在pom.xml中添加如下依赖:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>&lt;dependency&gt;</dt>
-<dd>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-starter-zuul&lt;/artifactId&gt;</dd>
-</dl>
-<p>&lt;/dependency&gt;
-&lt;dependency&gt;</p>
-<blockquote>
-<div>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;</div></blockquote>
-<p>&lt;/dependency&gt;</p>
-<dl class="docutils">
-<dt>spring-cloud-starter-zuul除包含zuul-core外还包括:</dt>
-<dd>spring-cloud-starter-hystrix: 该依赖主要实现对网关服务转发的保护机制，通过线程隔离和断路器，防止微服务故障引发API网关资源无法释放。
-spring-cloud-starter-ribbon: 网关服务在进行路由转发时实现负载均衡
-spring-cloud-starter-actuator: 提供微服务管理端点。Zuul还提供了/routes端点返回当前所有路由规则</dd>
-</dl>
-</div></blockquote>
-<p>2.创建主类</p>
-<blockquote>
-<div><p>&#64;EnableZuulProxy
-&#64;SpringBootApplication
-public class GatewayApplication {</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>public static void main(String[] args) {</dt>
-<dd>SpringApplication.run(GatewayApplication.class, args);</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-zuul&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+spring-cloud-starter-zuul除包含zuul-core外还包括:
+    spring-cloud-starter-hystrix: 该依赖主要实现对网关服务转发的保护机制，通过线程隔离和断路器，防止微服务故障引发API网关资源无法释放。
+    spring-cloud-starter-ribbon: 网关服务在进行路由转发时实现负载均衡
+    spring-cloud-starter-actuator: 提供微服务管理端点。Zuul还提供了/routes端点返回当前所有路由规则
+</pre></div>
+</div>
+<p>2.创建主类:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@EnableZuulProxy</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">GatewayApplication</span> <span class="p">{</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">GatewayApplication</span><span class="o">.</span><span class="n">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="id3">
 <h1>3. 常用配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id4">
 <h2>3.1. 请求路由<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>zuul.routes.&lt;自定义路由名&gt;.path: 设置请求匹配路由
-zuul.routes.&lt;自定义路由名&gt;.serviceId: 设置匹配路由将会发送到的微服务
-zuul.routes.&lt;自定义路由名&gt;.url: 设置匹配路由将会发送到的url
-zuul.ignored-services: 设置匹配表达式的Service Zuul将不会建立默认路由规则
-zuul.ignored-patterns: 设置忽略匹配路径
-zuul.retryable: 设置全局是否关闭请求重试
-zuul.routes.&lt;route&gt;.retryable: 设置指定路由是否关闭请求重试</p>
+<blockquote>
+<div><ul class="simple">
+<li>zuul.routes.&lt;自定义路由名&gt;.path: 设置请求匹配路由</li>
+<li>zuul.routes.&lt;自定义路由名&gt;.serviceId: 设置匹配路由将会发送到的微服务</li>
+<li>zuul.routes.&lt;自定义路由名&gt;.url: 设置匹配路由将会发送到的url</li>
+<li>zuul.ignored-services: 设置匹配表达式的Service Zuul将不会建立默认路由规则</li>
+<li>zuul.ignored-patterns: 设置忽略匹配路径</li>
+<li>zuul.retryable: 设置全局是否关闭请求重试</li>
+<li>zuul.routes.&lt;route&gt;.retryable: 设置指定路由是否关闭请求重试</li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="id5">
 <h2>3.2. 请求过滤<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>1.添加zuul过滤器类。继承ZuulFiter:</p>
-<blockquote>
-<div><p>/**
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/**
 * 添加token和label到请求header
 *
-* &#64;author flyleft
-<a href="#id6"><span class="problematic" id="id7">*</span></a>/
-public class HeaderWrapperFilter extends ZuulFilter {</p>
-<blockquote>
-<div><p>private static final Logger LOGGER = LoggerFactory.getLogger(HeaderWrapperFilter.class);</p>
-<p>private GatewayProperties gatewayHelperProperties;</p>
-<dl class="docutils">
-<dt>public HeaderWrapperFilter(GatewayProperties gatewayHelperProperties) {</dt>
-<dd>this.gatewayHelperProperties = gatewayHelperProperties;</dd>
-</dl>
-<p>}</p>
-<p>private static final int HEADER_WRAPPER_FILTER = -1;</p>
-<dl class="docutils">
-<dt>/**</dt>
-<dd><ul class="first simple">
-<li>过滤器类型，决定过滤器在那个生命周期中执行。pre表示在被路由之前执行，route表示在路由请求时被调用，post表示在route和error过滤器之后被调用，error表示处理请求发生错误时被调用</li>
-</ul>
-<p class="last"><a href="#id8"><span class="problematic" id="id9">*</span></a>/</p>
-</dd>
-</dl>
-<p>&#64;Override
-public String filterType() {</p>
-<blockquote>
-<div>return “pre”;</div></blockquote>
-<p>}</p>
-<dl class="docutils">
-<dt>/**</dt>
-<dd><a href="#id10"><span class="problematic" id="id11">*</span></a>过滤器执行顺序，值越小优先级越高
-<a href="#id12"><span class="problematic" id="id13">*</span></a>/</dd>
-</dl>
-<p>&#64;Override
-public int filterOrder() {</p>
-<blockquote>
-<div>return 0;</div></blockquote>
-<p>}</p>
-<dl class="docutils">
-<dt>/**</dt>
-<dd><a href="#id14"><span class="problematic" id="id15">*</span></a>过滤器是否需要被执行
-<a href="#id16"><span class="problematic" id="id17">*</span></a>/</dd>
-</dl>
-<p>&#64;Override
-public boolean shouldFilter() {</p>
-<blockquote>
-<div>return true;</div></blockquote>
-<p>}</p>
-<dl class="docutils">
-<dt>/**</dt>
-<dd><a href="#id18"><span class="problematic" id="id19">*</span></a>过滤器的具体逻辑
-<a href="#id20"><span class="problematic" id="id21">*</span></a>/</dd>
-</dl>
-<p>&#64;Override
-public Object run() {</p>
-<blockquote>
-<div><p>RequestContext ctx = RequestContext.getCurrentContext();
-HttpServletRequest request = ctx.getRequest();
-String token = (String) request.getAttribute(HEADER_JWT);
-if (StringUtils.isEmpty(token)) {</p>
-<blockquote>
-<div>LOGGER.info(“Request get empty jwt , request uri: {} method: {}”, request.getRequestURI(), request.getMethod());</div></blockquote>
-<dl class="docutils">
-<dt>} else {</dt>
-<dd><p class="first">ctx.addZuulRequestHeader(HEADER_TOKEN, token);
-if (gatewayHelperProperties.isEnabledJwtLog()) {</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>LOGGER.info(“Request get jwt , request uri: {} method: {} JWT: {}”,</dt>
-<dd>request.getRequestURI(), request.getMethod(), token);</dd>
-</dl>
-</div></blockquote>
-<p class="last">}</p>
-</dd>
-</dl>
-<p>}
-return null;</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-</div></blockquote>
-<p>2.将过滤器添加到IOC容器中，创建配置类:</p>
-<blockquote>
-<div><p>/**
-* 自定义configuration配置类
-*
-* &#64;author flyleft
-<a href="#id22"><span class="problematic" id="id23">*</span></a>/
-&#64;Configuration
-&#64;EnableConfigurationProperties(GatewayProperties.class)
-public class CustomZuulConfig {</p>
-<blockquote>
-<div><p>&#64;Bean
-public HeaderWrapperFilter headerWrapperFilter(GatewayProperties gatewayHelperProperties) {</p>
-<blockquote>
-<div>return new HeaderWrapperFilter(gatewayHelperProperties);</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+* @author flyleft
+*/
+public class HeaderWrapperFilter extends ZuulFilter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HeaderWrapperFilter.class);
+
+    private GatewayProperties gatewayHelperProperties;
+
+    public HeaderWrapperFilter(GatewayProperties gatewayHelperProperties) {
+        this.gatewayHelperProperties = gatewayHelperProperties;
+    }
+
+    private static final int HEADER_WRAPPER_FILTER = -1;
+
+    /**
+     * 过滤器类型，决定过滤器在那个生命周期中执行。pre表示在被路由之前执行，route表示在路由请求时被调用，post表示在route和error过滤器之后被调用，error表示处理请求发生错误时被调用
+     */
+    @Override
+    public String filterType() {
+        return &quot;pre&quot;;
+    }
+
+    /**
+     *过滤器执行顺序，值越小优先级越高
+     */
+    @Override
+    public int filterOrder() {
+        return 0;
+    }
+
+    /**
+     *过滤器是否需要被执行
+     */
+    @Override
+    public boolean shouldFilter() {
+        return true;
+    }
+
+    /**
+     *过滤器的具体逻辑
+     */
+    @Override
+    public Object run() {
+        RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+        String token = (String) request.getAttribute(HEADER_JWT);
+        if (StringUtils.isEmpty(token)) {
+            LOGGER.info(&quot;Request get empty jwt , request uri: {} method: {}&quot;, request.getRequestURI(), request.getMethod());
+        } else {
+            ctx.addZuulRequestHeader(HEADER_TOKEN, token);
+            if (gatewayHelperProperties.isEnabledJwtLog()) {
+                LOGGER.info(&quot;Request get jwt , request uri: {} method: {} JWT: {}&quot;,
+                        request.getRequestURI(), request.getMethod(), token);
+            }
+        }
+        return null;
+    }
+</pre></div>
 </div>
-<div class="section" id="id24">
-<h2>3.3. 路径匹配<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<p>2.将过滤器添加到IOC容器中，创建配置类:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+<span class="o">*</span> <span class="n">自定义configuration配置类</span>
+<span class="o">*</span>
+<span class="o">*</span> <span class="nd">@author</span> <span class="n">flyleft</span>
+<span class="o">*/</span>
+<span class="nd">@Configuration</span>
+<span class="nd">@EnableConfigurationProperties</span><span class="p">(</span><span class="n">GatewayProperties</span><span class="o">.</span><span class="n">class</span><span class="p">)</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">CustomZuulConfig</span> <span class="p">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="n">public</span> <span class="n">HeaderWrapperFilter</span> <span class="n">headerWrapperFilter</span><span class="p">(</span><span class="n">GatewayProperties</span> <span class="n">gatewayHelperProperties</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">new</span> <span class="n">HeaderWrapperFilter</span><span class="p">(</span><span class="n">gatewayHelperProperties</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>3.3. 路径匹配<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>路径匹配当匹配到一个满足路径表达式时匹配结束。因此需要保证配置文件读取到有序，需要使用YAML配置文件</p>
 <blockquote>
-<div>?: 表示匹配任意单个字符
-<em>: 表示匹配任意数量的字符
-*</em>: 表示匹配任意数量的字符，支持多级目录</div></blockquote>
+<div><ul class="simple">
+<li>?: 表示匹配任意单个字符</li>
+<li><a href="#id7"><span class="problematic" id="id8">*</span></a>: 表示匹配任意数量的字符</li>
+<li><a href="#id9"><span class="problematic" id="id10">**</span></a>: 表示匹配任意数量的字符，支持多级目录</li>
+</ul>
+</div></blockquote>
 </div>
-<div class="section" id="id25">
-<h2>3.4. 路由前缀<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>3.4. 路由前缀<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div>zuul.prefix: 为全局的路由规则设置前缀信息
-zuul.stripPrefix: 关闭移除代理前缀的动作
-zuul.routes.&lt;route&gt;.strip-prefix: 关闭指定路由移除代理前缀动作</div></blockquote>
+<div><ul class="simple">
+<li>zuul.prefix: 为全局的路由规则设置前缀信息</li>
+<li>zuul.stripPrefix: 关闭移除代理前缀的动作</li>
+<li>zuul.routes.&lt;route&gt;.strip-prefix: 关闭指定路由移除代理前缀动作</li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="cookie">
 <h2>3.5. Cookie与头信息<a class="headerlink" href="#cookie" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div>zuul.sensitiveHeaders: 设置Zuul的敏感头信息，默认包括Cookie、Set-Cookie、Authorization。设置为敏感头信息的内容将在路由时被网关过滤。
-zuul.routes.&lt;router&gt;.customSensitiveHeaders: 设置指定路由开启自定义敏感头，将去除默认敏感头设置
-zuul.routes.&lt;router&gt;.sensitiveHeaders: 设置指定路由的敏感头</div></blockquote>
+<div><ul class="simple">
+<li>zuul.sensitiveHeaders: 设置Zuul的敏感头信息，默认包括Cookie、Set-Cookie、Authorization。设置为敏感头信息的内容将在路由时被网关过滤。</li>
+<li>zuul.routes.&lt;router&gt;.customSensitiveHeaders: 设置指定路由开启自定义敏感头，将去除默认敏感头设置</li>
+<li>zuul.routes.&lt;router&gt;.sensitiveHeaders: 设置指定路由的敏感头</li>
+</ul>
+</div></blockquote>
 </div>
-<div class="section" id="id26">
-<h2>3.6. 重定向问题<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
-<p>系统内部重定向跳转，Location指向具体服务实例地址，导致请求没有通过网关控制。</p>
+<div class="section" id="id12">
+<h2>3.6. 重定向问题<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>系统内部重定向跳转，Location指向具体服务实例地址，导致请求没有通过网关控制</p>
 <blockquote>
-<div>zuul.addHostHeader: 设置请求转发前设置Host头信息，标识最初的服务端请求地址。</div></blockquote>
+<div><ul class="simple">
+<li>zuul.addHostHeader: 设置请求转发前设置Host头信息，标识最初的服务端请求地址,默认false，设置为true将表示最初服务端请求地址</li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 

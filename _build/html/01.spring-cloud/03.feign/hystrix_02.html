@@ -92,9 +92,9 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">微服务</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../spring-cloud.html">Spring Cloud</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">微服务简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">Spring Cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02.eureka/eureka.html">Spring Cloud Eureka</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="feign.html">Spring Cloud feign</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="ribbon_01.html">1. Ribbon 简介</a></li>
@@ -105,7 +105,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="feign_03.html">3. Feign 简介</a></li>
-<li class="toctree-l3"><a class="reference internal" href="feign_03.html#id6">4. Feign 属性配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="feign_03.html#id2">4. Feign 属性配置</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../04.zuul/zuul.html">Spring Cloud Zuul</a></li>
@@ -187,55 +187,56 @@
 <div class="section" id="id1">
 <h2>2.1. 快速入门<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>1.创建一个Spring boot项目，命名为hello-service，在pom.xml中添加Hystrix依赖:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>&lt;dependency&gt;</dt>
-<dd>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-starter-hystrix&lt;/artifactId&gt;</dd>
-</dl>
-<p>&lt;/dependency&gt;</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="n">springframework</span><span class="o">.</span><span class="n">cloud</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">cloud</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">hystrix</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <p>2.在主类中使用&#64;EnableCircuitBreaker注解开启断路器功能:</p>
-<blockquote>
-<div><p>&#64;EnableCircuitBreaker
-&#64;EnableDiscoveryClient
-&#64;SpringBooApplication
-public class ConsumerApplication{</p>
-<blockquote>
-<div><p>&#64;Bean
-&#64;LoadBalanced
-RestTemplate restTemplate(){</p>
-<blockquote>
-<div>return new RestTemplate;</div></blockquote>
-<p>}</p>
-<dl class="docutils">
-<dt>public static void main(String[] args){</dt>
-<dd>SpringApplication.run(ConsumerApplication.class, args);</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@EnableCircuitBreaker</span>
+<span class="nd">@EnableDiscoveryClient</span>
+<span class="nd">@SpringBooApplication</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">ConsumerApplication</span><span class="p">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@LoadBalanced</span>
+    <span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="p">(){</span>
+
+        <span class="k">return</span> <span class="n">new</span> <span class="n">RestTemplate</span><span class="p">;</span>
+
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">){</span>
+
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">ConsumerApplication</span><span class="o">.</span><span class="n">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>3.添加服务方法,&#64;HystrixCommand启动熔断功能，fallbackMethod指定服务降级调用方法，当调用服务发生故障或长时间未响应将调用服务降级方法，做后续处理:</p>
-<blockquote>
-<div><p>&#64;Service
-public class HelloService{</p>
-<blockquote>
-<div><p>&#64;Autowired
-RestTemplate restTemplate;</p>
-<p>&#64;HystrixCommand(fallbackMethod = “helloFallback”)
-public String helloService(){</p>
-<blockquote>
-<div>return restTemplate.getForEntity(“<a class="reference external" href="http://HELLO-SERVICE/hello">http://HELLO-SERVICE/hello</a>”, String.class).getBody();</div></blockquote>
-<p>}</p>
-<dl class="docutils">
-<dt>public String helloFallback(){</dt>
-<dd>return “error”;</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Service</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">HelloService</span><span class="p">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="p">;</span>
+
+    <span class="nd">@HystrixCommand</span><span class="p">(</span><span class="n">fallbackMethod</span> <span class="o">=</span> <span class="s2">&quot;helloFallback&quot;</span><span class="p">)</span>
+    <span class="n">public</span> <span class="n">String</span> <span class="n">helloService</span><span class="p">(){</span>
+
+        <span class="k">return</span> <span class="n">restTemplate</span><span class="o">.</span><span class="n">getForEntity</span><span class="p">(</span><span class="s2">&quot;http://HELLO-SERVICE/hello&quot;</span><span class="p">,</span> <span class="n">String</span><span class="o">.</span><span class="n">class</span><span class="p">)</span><span class="o">.</span><span class="n">getBody</span><span class="p">();</span>
+
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">String</span> <span class="n">helloFallback</span><span class="p">(){</span>
+
+        <span class="k">return</span> <span class="s2">&quot;error&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="id2">
 <h2>2.2. 属性详情<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -253,8 +254,8 @@ public String helloService(){</p>
 <p>hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 配置执行超时时间，单位毫秒。调用接口超过设置时间将触发服务降级。</p>
 <p>hystrix.command.default.execution.timeout.enabled: 设置是否启用超时时间，默认是true，如果设置成false，则超时时间配置不起作用。</p>
 <p>hystrix.command.default.fallback.enabled: 是否启用服务降级策略，默认为true。</p>
-<p>hystrix.threadpool.default.coreSize: 执行命令线程池的核心线程数，即命令执行的最大并发数。默认值为10</p>
-<p>hystrix.threadpool.default.maximumSize: 最大执行线程数</p>
+<p>hystrix.threadpool.default.coreSize: 执行命令线程池的核心线程数，即命令执行的最大并发数。默认值为10。</p>
+<p>hystrix.threadpool.default.maximumSize: 最大执行线程数。</p>
 <p>hystrix.threadpool.default.maxQueueSize: 设置线程池最大队列大小。当为-1使用SynchronousQueue实现的队列，否则使用LinekedBlockingQueue实现的队列。</p>
 </div>
 </div>

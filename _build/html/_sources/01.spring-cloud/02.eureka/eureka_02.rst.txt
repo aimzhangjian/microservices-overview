@@ -75,7 +75,7 @@ eureka.client.fetch-registry: 设置是否去注册中心检索服务，因为�
 
 eureka.client.serviceUrl.defaultZone: 注册中心地址
 
-eureka.client.registryFetchIntervalSeconds: 间隔多久去拉取服务组册信息，默认30秒
+eureka.client.registryFetchIntervalSeconds: 间隔多久去拉取服务注册信息，默认30秒
 
 服务提供者
 ======================================
@@ -115,11 +115,11 @@ eureka.client.registryFetchIntervalSeconds: 间隔多久去拉取服务组册信
                 public static void main(String[] args) {
 
                         SpringApplication.run(OauthServerApplication.class, args);
-                        
+
                 }
         }
 
-3.添加bootstrap.yum::
+3.添加bootstrap.yml配置文件::
 
         server:
           port: 8020
@@ -127,7 +127,7 @@ eureka.client.registryFetchIntervalSeconds: 间隔多久去拉取服务组册信
           application:
             name: oauth-server
 
-4.添加applocation.yum文件::
+4.添加applocation.yml文件::
     
         eureka:
           client:

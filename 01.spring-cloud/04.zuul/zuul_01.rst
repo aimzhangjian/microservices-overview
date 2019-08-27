@@ -41,13 +41,19 @@ API网关作为微服务系统提供对外资源的入口，起到了对服务�
 请求路由
 ----------------------------------------
 
-zuul.routes.<自定义路由名>.path: 设置请求匹配路由
-zuul.routes.<自定义路由名>.serviceId: 设置匹配路由将会发送到的微服务
-zuul.routes.<自定义路由名>.url: 设置匹配路由将会发送到的url
-zuul.ignored-services: 设置匹配表达式的Service Zuul将不会建立默认路由规则
-zuul.ignored-patterns: 设置忽略匹配路径
-zuul.retryable: 设置全局是否关闭请求重试
-zuul.routes.<route>.retryable: 设置指定路由是否关闭请求重试
+ - zuul.routes.<自定义路由名>.path: 设置请求匹配路由
+
+ - zuul.routes.<自定义路由名>.serviceId: 设置匹配路由将会发送到的微服务
+
+ - zuul.routes.<自定义路由名>.url: 设置匹配路由将会发送到的url
+
+ - zuul.ignored-services: 设置匹配表达式的Service Zuul将不会建立默认路由规则
+
+ - zuul.ignored-patterns: 设置忽略匹配路径
+
+ - zuul.retryable: 设置全局是否关闭请求重试
+
+ - zuul.routes.<route>.retryable: 设置指定路由是否关闭请求重试
 
 请求过滤
 -----------------------------------------
@@ -138,30 +144,36 @@ zuul.routes.<route>.retryable: 设置指定路由是否关闭请求重试
 
 路径匹配当匹配到一个满足路径表达式时匹配结束。因此需要保证配置文件读取到有序，需要使用YAML配置文件
 
-    ?: 表示匹配任意单个字符
-    *: 表示匹配任意数量的字符
-    **: 表示匹配任意数量的字符，支持多级目录
+ - ?: 表示匹配任意单个字符
+
+ - *: 表示匹配任意数量的字符
+
+ - **: 表示匹配任意数量的字符，支持多级目录
 
 路由前缀
 -------------------------------------------------
 
-    zuul.prefix: 为全局的路由规则设置前缀信息
-    zuul.stripPrefix: 关闭移除代理前缀的动作
-    zuul.routes.<route>.strip-prefix: 关闭指定路由移除代理前缀动作
+ - zuul.prefix: 为全局的路由规则设置前缀信息
+
+ - zuul.stripPrefix: 关闭移除代理前缀的动作
+
+ - zuul.routes.<route>.strip-prefix: 关闭指定路由移除代理前缀动作
 
 Cookie与头信息
 --------------------------------------------------
     
-    zuul.sensitiveHeaders: 设置Zuul的敏感头信息，默认包括Cookie、Set-Cookie、Authorization。设置为敏感头信息的内容将在路由时被网关过滤。
-    zuul.routes.<router>.customSensitiveHeaders: 设置指定路由开启自定义敏感头，将去除默认敏感头设置
-    zuul.routes.<router>.sensitiveHeaders: 设置指定路由的敏感头
+ - zuul.sensitiveHeaders: 设置Zuul的敏感头信息，默认包括Cookie、Set-Cookie、Authorization。设置为敏感头信息的内容将在路由时被网关过滤。
+ 
+ - zuul.routes.<router>.customSensitiveHeaders: 设置指定路由开启自定义敏感头，将去除默认敏感头设置
+ 
+ - zuul.routes.<router>.sensitiveHeaders: 设置指定路由的敏感头
 
 重定向问题
 ---------------------------------------------------
 
-系统内部重定向跳转，Location指向具体服务实例地址，导致请求没有通过网关控制。
+系统内部重定向跳转，Location指向具体服务实例地址，导致请求没有通过网关控制
 
-    zuul.addHostHeader: 设置请求转发前设置Host头信息，标识最初的服务端请求地址。
+ - zuul.addHostHeader: 设置请求转发前设置Host头信息，标识最初的服务端请求地址,默认false，设置为true将表示最初服务端请求地址
 
 
 

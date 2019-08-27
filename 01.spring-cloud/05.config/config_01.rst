@@ -32,7 +32,7 @@ Spring Cloud Config用来为分布式系统中基础设施和微服务应用提�
 
     }
 
-3.配置文件中添加Git仓库的相关信息
+3.配置文件中添加Git仓库的相关信息::
 
     spring.cloud.config.server.git.uri: 配置Git仓库位置
     spring.cloud.config.server.git.searchPaths: 配置路径下的相对搜索位置，可以配置多个
@@ -57,12 +57,12 @@ Spring Cloud Config用来为分布式系统中基础设施和微服务应用提�
     /{application}/{profile}.properties
     /{label}/{application}-{profile}.properties
 
-    微服务应用从配置中心获取配置文件时，配置中心将通过git clone加载配置文件到配置中心本地，并将这些配置文件返回给微服务应用。即使配置中心不能访问Git配置文件地址时也能返回配置文件。
+微服务应用从配置中心获取配置文件时，配置中心将通过git clone加载配置文件到配置中心本地，并将这些配置文件返回给微服务应用。即使配置中心不能访问Git配置文件地址时也能返回配置文件
  
- 客户端配置
- =========================================
+客户端配置
+=======================================
 
- 1.创建一个Spring Boot应用，命名为config-client，并在pom.xml中添加如下依赖::
+1.创建一个Spring Boot应用，命名为config-client，并在pom.xml中添加如下依赖::
 
     <dependency>
         <groupId>org.springframework.cloud</groupId>

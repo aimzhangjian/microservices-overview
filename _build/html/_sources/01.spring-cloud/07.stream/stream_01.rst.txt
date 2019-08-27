@@ -6,14 +6,14 @@ Spring Cloud Stream 是一个为微服务构建消息驱动能力的框架。整
 快速入门
 ======================================
 
-1.创建Spring Boot 项目，命名stream-demo，pom.xml中添加如下依赖:
+1.创建Spring Boot 项目，命名stream-demo，pom.xml中添加如下依赖::
  
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-stream-binder-kafka</artifactId>
     </dependency>
 
-2.创建自定义通道接口，SendAndReceive:
+2.创建自定义通道接口，SendAndReceive::
 
     public interface SendAndReceive{
         
@@ -48,7 +48,7 @@ Spring Cloud Stream 是一个为微服务构建消息驱动能力的框架。整
         MessageChannel send3();
     }
 
-3.创建消息接收发送类:
+3.创建消息接收发送类::
 
     @EnableBinding(SendAndReceive.class)
     @WebAppConfiguration
@@ -86,7 +86,7 @@ Spring Cloud Stream 是一个为微服务构建消息驱动能力的框架。整
 
     }
 
-4.创建服务启动类:
+4.创建服务启动类::
     
     @SpringBootApplication
     public class Application {
@@ -97,7 +97,7 @@ Spring Cloud Stream 是一个为微服务构建消息驱动能力的框架。整
 
     }
 
-5.配置文件中添加如下配置:
+5.配置文件中添加如下配置::
 
     spring.cloud.stream.defaultBinder: 配置默认绑定器，比如kafka
     spring.cloud.stream.bindings.input1.group: 为具体通道绑定分组名，通常设置成服务名

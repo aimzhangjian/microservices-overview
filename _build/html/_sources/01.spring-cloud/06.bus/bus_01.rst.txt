@@ -8,7 +8,7 @@
 
 1.部署搭建kafka相关环境
 
-2.修改config-server配置中心，并在pom.xml中添加如下依赖，其它需要更新外部配置文件的服务也加入该依赖:
+2.修改config-server配置中心，并在pom.xml中添加如下依赖，其它需要更新外部配置文件的服务也加入该依赖::
 
     <dependency>
         <groupId>org.springframework.cloud</groupId>

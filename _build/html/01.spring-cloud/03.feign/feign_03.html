@@ -92,9 +92,9 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">微服务</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../spring-cloud.html">Spring Cloud</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">微服务简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">Spring Cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02.eureka/eureka.html">Spring Cloud Eureka</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="feign.html">Spring Cloud feign</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="ribbon_01.html">1. Ribbon 简介</a></li>
@@ -103,11 +103,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#id1">3.1. 快速入门</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">4. Feign 属性配置</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4. Feign 属性配置</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ribbon">4.1. Ribbon配置</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hystrix">4.2. Hystrix配置</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">4.3. 禁用Hystrix配置</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">4.4. Feign配置属性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">4.3. 禁用Hystrix配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">4.4. Feign配置属性</a></li>
 </ul>
 </li>
 </ul>
@@ -191,68 +191,65 @@
 <div class="section" id="id1">
 <h2>3.1. 快速入门<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>1.创建一个Spring boot项目，命名为hello-service，在pom.xml中添加Hystrix依赖:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>&lt;dependency&gt;</dt>
-<dd>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-starter-feign&lt;/artifactId&gt;</dd>
-</dl>
-<p>&lt;/dependency&gt;</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="n">springframework</span><span class="o">.</span><span class="n">cloud</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">cloud</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">feign</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <p>2.在主类中使用&#64;EnableFeignClients注解开启Feign功能支持:</p>
-<blockquote>
-<div><p>&#64;EnableFeignClients
-&#64;EnableDiscoveryClient
-&#64;SpringBooApplication
-public class ConsumerApplication{</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>public static void main(String[] args){</dt>
-<dd>SpringApplication.run(ConsumerApplication.class, args);</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@EnableFeignClients</span>
+<span class="nd">@EnableDiscoveryClient</span>
+<span class="nd">@SpringBooApplication</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">ConsumerApplication</span><span class="p">{</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">){</span>
+
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">ConsumerApplication</span><span class="o">.</span><span class="n">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>3.定义SslmRemoteService接口，通过&#64;FeignClient的value属性指定服务名来绑定服务，fallback属性指定服务降级调用方法类，path属性指定公共的URL:</p>
-<blockquote>
-<div><p>&#64;FeignClient(value = “srm-supplier-lifecycle”, fallback = SslmRemoteServiceFallback.class, path = “/v1/{organizationId}”)
-public interface SslmRemoteService{</p>
-<blockquote>
-<div><p>/**
-<a href="#id2"><span class="problematic" id="id3">*</span></a>创建调查表头并发布调查表
-*
-* &#64;param organizationId
-* &#64;param investigateHeaderList
-* &#64;return List&lt;InvestigateHeaderVO&gt;
-<a href="#id4"><span class="problematic" id="id5">*</span></a>/
-&#64;PostMapping(“/investigate/save-release”)
-List&lt;InvestigateHeaderVO&gt; batchSaveAndReleaseInvestgHeader(&#64;PathVariable(“organizationId”) Long organizationId,</p>
-<blockquote>
-<div>&#64;RequestBody List&lt;InvestigateHeaderVO&gt; investigateHeaderList);</div></blockquote>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>4.定义SslmRemoteServiceFallback回调方法类</p>
-<blockquote>
-<div><p>&#64;Component
-&#64;SuppressWarnings(“all”)
-public class SslmRemoteServiceFallback implements SslmRemoteService{</p>
-<blockquote>
-<div><p>private static final Logger LOGGER = LoggerFactory.getLogger(SslmRemoteServiceFallback.class);</p>
-<p>&#64;Override
-public List&lt;InvestigateHeaderVO&gt; batchSaveAndReleaseInvestgHeader(Long organizationId, List&lt;InvestigateHeaderVO&gt; investigateHeaderList) {</p>
-<blockquote>
-<div>LOGGER.error(“Post batch save and release investgHeader fail”);
-throw new CommonException(BaseConstants.ErrorCode.ERROR);</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@FeignClient</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;srm-supplier-lifecycle&quot;</span><span class="p">,</span> <span class="n">fallback</span> <span class="o">=</span> <span class="n">SslmRemoteServiceFallback</span><span class="o">.</span><span class="n">class</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/v1/</span><span class="si">{organizationId}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">public</span> <span class="n">interface</span> <span class="n">SslmRemoteService</span><span class="p">{</span>
+
+    <span class="o">/**</span>
+    <span class="o">*</span><span class="n">创建调查表头并发布调查表</span>
+    <span class="o">*</span>
+    <span class="o">*</span> <span class="nd">@param</span> <span class="n">organizationId</span>
+    <span class="o">*</span> <span class="nd">@param</span> <span class="n">investigateHeaderList</span>
+    <span class="o">*</span> <span class="nd">@return</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">InvestigateHeaderVO</span><span class="o">&gt;</span>
+    <span class="o">*/</span>
+    <span class="nd">@PostMapping</span><span class="p">(</span><span class="s2">&quot;/investigate/save-release&quot;</span><span class="p">)</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">InvestigateHeaderVO</span><span class="o">&gt;</span> <span class="n">batchSaveAndReleaseInvestgHeader</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="p">(</span><span class="s2">&quot;organizationId&quot;</span><span class="p">)</span> <span class="n">Long</span> <span class="n">organizationId</span><span class="p">,</span>
+                                                                <span class="nd">@RequestBody</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">InvestigateHeaderVO</span><span class="o">&gt;</span> <span class="n">investigateHeaderList</span><span class="p">);</span>
+
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>4.定义SslmRemoteServiceFallback回调方法类:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Component</span>
+<span class="nd">@SuppressWarnings</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">SslmRemoteServiceFallback</span> <span class="n">implements</span> <span class="n">SslmRemoteService</span><span class="p">{</span>
+
+    <span class="n">private</span> <span class="n">static</span> <span class="n">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">SslmRemoteServiceFallback</span><span class="o">.</span><span class="n">class</span><span class="p">);</span>
+
+    <span class="nd">@Override</span>
+    <span class="n">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">InvestigateHeaderVO</span><span class="o">&gt;</span> <span class="n">batchSaveAndReleaseInvestgHeader</span><span class="p">(</span><span class="n">Long</span> <span class="n">organizationId</span><span class="p">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">InvestigateHeaderVO</span><span class="o">&gt;</span> <span class="n">investigateHeaderList</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Post batch save and release investgHeader fail&quot;</span><span class="p">);</span>
+        <span class="n">throw</span> <span class="n">new</span> <span class="n">CommonException</span><span class="p">(</span><span class="n">BaseConstants</span><span class="o">.</span><span class="n">ErrorCode</span><span class="o">.</span><span class="n">ERROR</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </div>
-<div class="section" id="id6">
-<h1>4. Feign 属性配置<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="id2">
+<h1>4. Feign 属性配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <p>Spring Cloud Feign整合了Spring Cloud Ribbon和Spring Cloud Hystrix，所以对于负载均衡、熔断降级的配置可以按Ribbon和Hystrix的配置。</p>
 <div class="section" id="ribbon">
 <h2>4.1. Ribbon配置<a class="headerlink" href="#ribbon" title="Permalink to this headline">¶</a></h2>
@@ -263,32 +260,32 @@ throw new CommonException(BaseConstants.ErrorCode.ERROR);</div></blockquote>
 <blockquote>
 <div>feign.hystrix.enabled: 设置是否开启Feign 客户端Hystrix支持。</div></blockquote>
 </div>
-<div class="section" id="id7">
-<h2>4.3. 禁用Hystrix配置<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>4.3. 禁用Hystrix配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>除通过feign.hystrix.enabled设置外还可针对服务客户端关闭Hystrix支持</p>
-<p>1.创建关闭Hystrix配置类</p>
-<blockquote>
-<div><p>&#64;Configuration
-public class DisableHystrixConfiguration{</p>
-<blockquote>
-<div><p>&#64;Bean
-&#64;Scope(“prototype”)
-public Feign.Builder feignBuilder(){</p>
-<blockquote>
-<div>return Feign.builder();</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>2.通过&#64;FeignClient注解中，configuration参数引入配置</p>
-<blockquote>
-<div><p>&#64;FeignClient(value = “hello-service”, configuration = DisableHystrixConfiguration.class)
-public interface HelloService{</p>
-<p>}</p>
-</div></blockquote>
+<p>1.创建关闭Hystrix配置类:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@Configuration</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">DisableHystrixConfiguration</span><span class="p">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@Scope</span><span class="p">(</span><span class="s2">&quot;prototype&quot;</span><span class="p">)</span>
+    <span class="n">public</span> <span class="n">Feign</span><span class="o">.</span><span class="n">Builder</span> <span class="n">feignBuilder</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="n">Feign</span><span class="o">.</span><span class="n">builder</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
 </div>
-<div class="section" id="id8">
-<h2>4.4. Feign配置属性<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>2.通过&#64;FeignClient注解中，configuration参数引入配置:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@FeignClient</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;hello-service&quot;</span><span class="p">,</span> <span class="n">configuration</span> <span class="o">=</span> <span class="n">DisableHystrixConfiguration</span><span class="o">.</span><span class="n">class</span><span class="p">)</span>
+<span class="n">public</span> <span class="n">interface</span> <span class="n">HelloService</span><span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>4.4. Feign配置属性<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div>feign.compression.request.enabled: 设置是否开启请求GZIP压缩功能
 feign.compression.response.enabled: 设置是否开启响应GZIP压缩功能

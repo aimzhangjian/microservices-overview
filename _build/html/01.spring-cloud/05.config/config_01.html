@@ -92,15 +92,16 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">微服务</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../spring-cloud.html">Spring Cloud</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">微服务简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">Spring Cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02.eureka/eureka.html">Spring Cloud Eureka</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03.feign/feign.html">Spring Cloud feign</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../04.zuul/zuul.html">Spring Cloud Zuul</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="config.html">Spring Cloud Config</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">2. 快速入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. 客户端配置</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../06.bus/bus.html">Spring Cloud Bus</a></li>
@@ -181,112 +182,106 @@
 <div class="section" id="id2">
 <h1>2. 快速入门<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <p>1.创建一个Spring Boot工程，命名为config-server，并在pom.xml中添加如下依赖:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>&lt;dependency&gt;</dt>
-<dd>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-config-service&lt;/artifactId&gt;</dd>
-</dl>
-<p>&lt;/dependency&gt;
-&lt;dependency&gt;</p>
-<blockquote>
-<div>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;</div></blockquote>
-<p>&lt;/dependency&gt;</p>
-</div></blockquote>
-<p>2.创建主类,添加&#64;EnableConfigServer开启Spring Cloud Config的服务端功能</p>
-<blockquote>
-<div><p>&#64;EnableConfigServer
-&#64;EnableDiscoveryClent
-&#64;SpringBootApplication
-public class ConfigServerApplication {</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>public static void main(String[] args) {</dt>
-<dd>SpringApplication.run(ConfigServerApplication.class, args);</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>3.配置文件中添加Git仓库的相关信息</p>
-<blockquote>
-<div>spring.cloud.config.server.git.uri: 配置Git仓库位置
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="n">springframework</span><span class="o">.</span><span class="n">cloud</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">cloud</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">service</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="n">springframework</span><span class="o">.</span><span class="n">cloud</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">cloud</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">eureka</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>2.创建主类,添加&#64;EnableConfigServer开启Spring Cloud Config的服务端功能:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@EnableConfigServer</span>
+<span class="nd">@EnableDiscoveryClent</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">ConfigServerApplication</span> <span class="p">{</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">ConfigServerApplication</span><span class="o">.</span><span class="n">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>3.配置文件中添加Git仓库的相关信息:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>spring.cloud.config.server.git.uri: 配置Git仓库位置
 spring.cloud.config.server.git.searchPaths: 配置路径下的相对搜索位置，可以配置多个
 spring.cloud.config.server.git.usernane: 配置访问Git仓库的用户信息
 spring.cloud.config.server.git.password: 配置访问Git仓库的用户名秘密
-spring.cloud.config.server.git.basedir: 设置配置中心缓存拉取配置文件的目录</div></blockquote>
+spring.cloud.config.server.git.basedir: 设置配置中心缓存拉取配置文件的目录
+</pre></div>
+</div>
 <p>4.创建配置仓库</p>
 <p>根据config-server中配置的Git仓库位置创建仓库，并根据不同环境新建对应的配置文件:</p>
-<blockquote>
-<div>configspace.properties
-configspace-dev.properties
-configspace-test.properties
-configsapce-prod.properties</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">configspace</span><span class="o">.</span><span class="n">properties</span>
+<span class="n">configspace</span><span class="o">-</span><span class="n">dev</span><span class="o">.</span><span class="n">properties</span>
+<span class="n">configspace</span><span class="o">-</span><span class="n">test</span><span class="o">.</span><span class="n">properties</span>
+<span class="n">configsapce</span><span class="o">-</span><span class="n">prod</span><span class="o">.</span><span class="n">properties</span>
+</pre></div>
+</div>
 <p>访问配置信息的URL与配置文件的映射关系，application对应应用名，profile对应环境名，label对应Git上不同分支:</p>
-<blockquote>
-<div><blockquote>
-<div><p>/{application}/{profile}[/{label}]
-/{application}/{profile}.yml
-/{label}/{application}-{profile}.yml
-/{application}/{profile}.properties
-/{label}/{application}-{profile}.properties</p>
-<p>微服务应用从配置中心获取配置文件时，配置中心将通过git clone加载配置文件到配置中心本地，并将这些配置文件返回给微服务应用。即使配置中心不能访问Git配置文件地址时也能返回配置文件。</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="p">{</span><span class="n">application</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">profile</span><span class="p">}[</span><span class="o">/</span><span class="p">{</span><span class="n">label</span><span class="p">}]</span>
+<span class="o">/</span><span class="p">{</span><span class="n">application</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">profile</span><span class="p">}</span><span class="o">.</span><span class="n">yml</span>
+<span class="o">/</span><span class="p">{</span><span class="n">label</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">application</span><span class="p">}</span><span class="o">-</span><span class="p">{</span><span class="n">profile</span><span class="p">}</span><span class="o">.</span><span class="n">yml</span>
+<span class="o">/</span><span class="p">{</span><span class="n">application</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">profile</span><span class="p">}</span><span class="o">.</span><span class="n">properties</span>
+<span class="o">/</span><span class="p">{</span><span class="n">label</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">application</span><span class="p">}</span><span class="o">-</span><span class="p">{</span><span class="n">profile</span><span class="p">}</span><span class="o">.</span><span class="n">properties</span>
+</pre></div>
+</div>
+<p>微服务应用从配置中心获取配置文件时，配置中心将通过git clone加载配置文件到配置中心本地，并将这些配置文件返回给微服务应用。即使配置中心不能访问Git配置文件地址时也能返回配置文件</p>
+</div>
+<div class="section" id="id3">
+<h1>3. 客户端配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
 <p>1.创建一个Spring Boot应用，命名为config-client，并在pom.xml中添加如下依赖:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>&lt;dependency&gt;</dt>
-<dd>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-starter-config&lt;/artifactId&gt;</dd>
-</dl>
-<p>&lt;/dependency&gt;
-&lt;dependency&gt;</p>
-<blockquote>
-<div>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;</div></blockquote>
-<p>&lt;/dependency&gt;</p>
-<p>&lt;!– 配置访问配置中心失败时重试依赖 –&gt;
-&lt;dependency&gt;</p>
-<blockquote>
-<div>&lt;groupId&gt;org.springframework.retry&lt;/groupId&gt;
-&lt;artifactId&gt;spring-retry&lt;/artifactId&gt;</div></blockquote>
-<p>&lt;/dependency&gt;
-&lt;dependency&gt;</p>
-<blockquote>
-<div>&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-&lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;</div></blockquote>
-<p>&lt;/dependency&gt;</p>
-</div></blockquote>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-config&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+&lt;!-- 配置访问配置中心失败时重试依赖 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.retry&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-retry&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</pre></div>
+</div>
 <p>2.创建Spring Boot主类:</p>
-<blockquote>
-<div><p>&#64;EnableDiscoveryClent
-&#64;SpringBootApplication
-public class Application {</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>public static void main(String[] args) {</dt>
-<dd>SpringApplication.run(Application.class, args);</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@EnableDiscoveryClent</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">Application</span> <span class="p">{</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Application</span><span class="o">.</span><span class="n">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>3.配置文件bootstrap.properties中添加如下配置项:</p>
-<blockquote>
-<div><p>spring.application.name: 配置获取配置文件的服务名
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>spring.application.name: 配置获取配置文件的服务名
 spring.cloud.config.profile: 配置获取配置文件的环境名
 spring.cloud.config.label: 配置获取配置文件的版本
-spring.cloud.config.url: 配置中心的地址</p>
-<p>spring.cloud.config.discovery.enable: 设置是否开启服务名访问配置中心功能
-spring.cloud.config.discovery.serviceId: 设置要访问配置中心服务名</p>
-<p>spring.cloud.config.failFast: 设置客户端启动时是否优先尝试判断从配置中心获取配置信息是否正常
+spring.cloud.config.url: 配置中心的地址
+
+spring.cloud.config.discovery.enable: 设置是否开启服务名访问配置中心功能
+spring.cloud.config.discovery.serviceId: 设置要访问配置中心服务名
+
+spring.cloud.config.failFast: 设置客户端启动时是否优先尝试判断从配置中心获取配置信息是否正常
 spring.cloud.config.retry.multiplier: 设置初始重试间隔时间
 spring.cloud.config.retry.initial-interval: 设置下一间隔的乘数
 spring.cloud.config.retry.max-interval: 设置最大间隔时间，默认为2000毫秒
-spring.cloud.config.retry.max-attempts: 设置最大重试次数，默认为6次</p>
-</div></blockquote>
+spring.cloud.config.retry.max-attempts: 设置最大重试次数，默认为6次
+</pre></div>
+</div>
 </div>
 
 

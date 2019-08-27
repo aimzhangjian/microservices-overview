@@ -253,7 +253,7 @@
 <p>eureka.client.register-with-eureka: 设置是否向注册中心注册服务，因为本身为注册中心不需要注册自己。如果是注册中心集群则不需要此配置，默认为true。</p>
 <p>eureka.client.fetch-registry: 设置是否去注册中心检索服务，因为本身为注册中心维护有服务列表不用去检索。如果为注册中心集群则不需此配置，默认为true。</p>
 <p>eureka.client.serviceUrl.defaultZone: 注册中心地址</p>
-<p>eureka.client.registryFetchIntervalSeconds: 间隔多久去拉取服务组册信息，默认30秒</p>
+<p>eureka.client.registryFetchIntervalSeconds: 间隔多久去拉取服务注册信息，默认30秒</p>
 </div>
 <div class="section" id="id2">
 <h1>4. 服务提供者<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
@@ -296,7 +296,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>3.添加bootstrap.yum:</p>
+<p>3.添加bootstrap.yml配置文件:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="p">:</span>
   <span class="n">port</span><span class="p">:</span> <span class="mi">8020</span>
 <span class="n">spring</span><span class="p">:</span>
@@ -304,7 +304,7 @@
     <span class="n">name</span><span class="p">:</span> <span class="n">oauth</span><span class="o">-</span><span class="n">server</span>
 </pre></div>
 </div>
-<p>4.添加applocation.yum文件:</p>
+<p>4.添加applocation.yml文件:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>eureka:
   client:
     serviceUrl:

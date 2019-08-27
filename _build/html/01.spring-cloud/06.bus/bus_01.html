@@ -92,9 +92,9 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">微服务</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../spring-cloud.html">Spring Cloud</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">微服务简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">Spring Cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02.eureka/eureka.html">Spring Cloud Eureka</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03.feign/feign.html">Spring Cloud feign</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../04.zuul/zuul.html">Spring Cloud Zuul</a></li>
@@ -182,14 +182,12 @@
 <h1>2. 快速入门<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <p>1.部署搭建kafka相关环境</p>
 <p>2.修改config-server配置中心，并在pom.xml中添加如下依赖，其它需要更新外部配置文件的服务也加入该依赖:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>&lt;dependency&gt;</dt>
-<dd>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-starter-bus-kafka&lt;/artifactId&gt;</dd>
-</dl>
-<p>&lt;/dependency&gt;</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="n">springframework</span><span class="o">.</span><span class="n">cloud</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">cloud</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">bus</span><span class="o">-</span><span class="n">kafka</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <p>3.配置文件中配置kafka相关连接信息:</p>
 <p>4.设置配置文件仓库更新时通过Web Hook发起请求/bus/refresh?destination= 到配置中心服务</p>
 </div>

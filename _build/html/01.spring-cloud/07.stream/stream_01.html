@@ -91,9 +91,9 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../00.summary/summary.html">微服务</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../spring-cloud.html">Spring Cloud</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">微服务简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01.introduction/introduction.html">Spring Cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02.eureka/eureka.html">Spring Cloud Eureka</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03.feign/feign.html">Spring Cloud feign</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../04.zuul/zuul.html">Spring Cloud Zuul</a></li>
@@ -187,104 +187,106 @@
 <div class="section" id="id2">
 <h1>2. 快速入门<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <p>1.创建Spring Boot 项目，命名stream-demo，pom.xml中添加如下依赖:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>&lt;dependency&gt;</dt>
-<dd>&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-&lt;artifactId&gt;spring-cloud-stream-binder-kafka&lt;/artifactId&gt;</dd>
-</dl>
-<p>&lt;/dependency&gt;</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="n">springframework</span><span class="o">.</span><span class="n">cloud</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">cloud</span><span class="o">-</span><span class="n">stream</span><span class="o">-</span><span class="n">binder</span><span class="o">-</span><span class="n">kafka</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <p>2.创建自定义通道接口，SendAndReceive:</p>
-<blockquote>
-<div><p>public interface SendAndReceive{</p>
-<blockquote>
-<div><p>String SEND1 = “send1”;</p>
-<p>String SEND2 = “send2”;</p>
-<p>String SEND3 = “send3”;</p>
-<p>String INPUT1 = “INPUT1”;</p>
-<p>String INPUT2 = “INPUT2”;</p>
-<p>String INPUT3 = “INPUT3”;</p>
-<p>&#64;Input(SendAndReceive.INPUT1)
-SubscribableChannel input1();</p>
-<p>&#64;Input(SendAndReceive.INPUT2)
-SubscribableChannel input2();</p>
-<p>&#64;Input(SendAndReceive.INPUT3)
-SubscribableChannel input3();</p>
-<p>&#64;Output(SendAndReceive.SEND1)
-MessageChannel send1();</p>
-<p>&#64;Output(SendAndReceive.SEND2)
-MessageChannel send2();</p>
-<p>&#64;Output(SendAndReceive.SEND3)
-MessageChannel send3();</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="n">interface</span> <span class="n">SendAndReceive</span><span class="p">{</span>
+
+    <span class="n">String</span> <span class="n">SEND1</span> <span class="o">=</span> <span class="s2">&quot;send1&quot;</span><span class="p">;</span>
+
+    <span class="n">String</span> <span class="n">SEND2</span> <span class="o">=</span> <span class="s2">&quot;send2&quot;</span><span class="p">;</span>
+
+    <span class="n">String</span> <span class="n">SEND3</span> <span class="o">=</span> <span class="s2">&quot;send3&quot;</span><span class="p">;</span>
+
+    <span class="n">String</span> <span class="n">INPUT1</span> <span class="o">=</span> <span class="s2">&quot;INPUT1&quot;</span><span class="p">;</span>
+
+    <span class="n">String</span> <span class="n">INPUT2</span> <span class="o">=</span> <span class="s2">&quot;INPUT2&quot;</span><span class="p">;</span>
+
+    <span class="n">String</span> <span class="n">INPUT3</span> <span class="o">=</span> <span class="s2">&quot;INPUT3&quot;</span><span class="p">;</span>
+
+    <span class="nd">@Input</span><span class="p">(</span><span class="n">SendAndReceive</span><span class="o">.</span><span class="n">INPUT1</span><span class="p">)</span>
+    <span class="n">SubscribableChannel</span> <span class="n">input1</span><span class="p">();</span>
+
+    <span class="nd">@Input</span><span class="p">(</span><span class="n">SendAndReceive</span><span class="o">.</span><span class="n">INPUT2</span><span class="p">)</span>
+    <span class="n">SubscribableChannel</span> <span class="n">input2</span><span class="p">();</span>
+
+    <span class="nd">@Input</span><span class="p">(</span><span class="n">SendAndReceive</span><span class="o">.</span><span class="n">INPUT3</span><span class="p">)</span>
+    <span class="n">SubscribableChannel</span> <span class="n">input3</span><span class="p">();</span>
+
+    <span class="nd">@Output</span><span class="p">(</span><span class="n">SendAndReceive</span><span class="o">.</span><span class="n">SEND1</span><span class="p">)</span>
+    <span class="n">MessageChannel</span> <span class="n">send1</span><span class="p">();</span>
+
+    <span class="nd">@Output</span><span class="p">(</span><span class="n">SendAndReceive</span><span class="o">.</span><span class="n">SEND2</span><span class="p">)</span>
+    <span class="n">MessageChannel</span> <span class="n">send2</span><span class="p">();</span>
+
+    <span class="nd">@Output</span><span class="p">(</span><span class="n">SendAndReceive</span><span class="o">.</span><span class="n">SEND3</span><span class="p">)</span>
+    <span class="n">MessageChannel</span> <span class="n">send3</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>3.创建消息接收发送类:</p>
-<blockquote>
-<div><p>&#64;EnableBinding(SendAndReceive.class)
-&#64;WebAppConfiguration
-public class ReciverAndSend{</p>
-<blockquote>
-<div><p>&#64;Autowired
-private SendAndReceive sendAndReceive;</p>
-<p>&#64;StreamListener(Sink.INPUT1)
-public void revice1(Object payload){</p>
-<blockquote>
-<div>…</div></blockquote>
-<p>}</p>
-<p>&#64;StreamListener(Sink.INPUT2)
-public void revice2(Object payload){</p>
-<blockquote>
-<div>…</div></blockquote>
-<p>}</p>
-<p>&#64;StreamListener(Sink.INPUT3)
-public void revice3(Object payload){</p>
-<blockquote>
-<div>…</div></blockquote>
-<p>}</p>
-<dl class="docutils">
-<dt>public void send1(){</dt>
-<dd>sendAndReceive.send1().send(MessageBuilder.withPayload(“内容”).build())</dd>
-</dl>
-<p>}</p>
-<dl class="docutils">
-<dt>public void send2(){</dt>
-<dd>sendAndReceive.send2().send(MessageBuilder.withPayload(“内容”).build())</dd>
-</dl>
-<p>}</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>public void send3(){</dt>
-<dd>sendAndReceive.send2().send(MessageBuilder.withPayload(“内容”).build())</dd>
-</dl>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@EnableBinding</span><span class="p">(</span><span class="n">SendAndReceive</span><span class="o">.</span><span class="n">class</span><span class="p">)</span>
+<span class="nd">@WebAppConfiguration</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">ReciverAndSend</span><span class="p">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">private</span> <span class="n">SendAndReceive</span> <span class="n">sendAndReceive</span><span class="p">;</span>
+
+    <span class="nd">@StreamListener</span><span class="p">(</span><span class="n">Sink</span><span class="o">.</span><span class="n">INPUT1</span><span class="p">)</span>
+    <span class="n">public</span> <span class="n">void</span> <span class="n">revice1</span><span class="p">(</span><span class="n">Object</span> <span class="n">payload</span><span class="p">){</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+
+    <span class="nd">@StreamListener</span><span class="p">(</span><span class="n">Sink</span><span class="o">.</span><span class="n">INPUT2</span><span class="p">)</span>
+    <span class="n">public</span> <span class="n">void</span> <span class="n">revice2</span><span class="p">(</span><span class="n">Object</span> <span class="n">payload</span><span class="p">){</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+
+    <span class="nd">@StreamListener</span><span class="p">(</span><span class="n">Sink</span><span class="o">.</span><span class="n">INPUT3</span><span class="p">)</span>
+    <span class="n">public</span> <span class="n">void</span> <span class="n">revice3</span><span class="p">(</span><span class="n">Object</span> <span class="n">payload</span><span class="p">){</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">void</span> <span class="n">send1</span><span class="p">(){</span>
+        <span class="n">sendAndReceive</span><span class="o">.</span><span class="n">send1</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">MessageBuilder</span><span class="o">.</span><span class="n">withPayload</span><span class="p">(</span><span class="s2">&quot;内容&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">())</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">void</span> <span class="n">send2</span><span class="p">(){</span>
+        <span class="n">sendAndReceive</span><span class="o">.</span><span class="n">send2</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">MessageBuilder</span><span class="o">.</span><span class="n">withPayload</span><span class="p">(</span><span class="s2">&quot;内容&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">())</span>
+    <span class="p">}</span>
+
+     <span class="n">public</span> <span class="n">void</span> <span class="n">send3</span><span class="p">(){</span>
+        <span class="n">sendAndReceive</span><span class="o">.</span><span class="n">send2</span><span class="p">()</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">MessageBuilder</span><span class="o">.</span><span class="n">withPayload</span><span class="p">(</span><span class="s2">&quot;内容&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">())</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>4.创建服务启动类:</p>
-<blockquote>
-<div><p>&#64;SpringBootApplication
-public class Application {</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>public static void main(String[] args) {</dt>
-<dd>SpringApplication.run(Application.class, args);</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@SpringBootApplication</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">Application</span> <span class="p">{</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Application</span><span class="o">.</span><span class="n">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>5.配置文件中添加如下配置:</p>
-<blockquote>
-<div>spring.cloud.stream.defaultBinder: 配置默认绑定器，比如kafka
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>spring.cloud.stream.defaultBinder: 配置默认绑定器，比如kafka
 spring.cloud.stream.bindings.input1.group: 为具体通道绑定分组名，通常设置成服务名
 spring.cloud.stream.bindings.input1.destination: 设置具体通道消费主题
 spring.cloud.stream.bindings.output1.destination: 设置具体通道输出消息的主题
 spring.cloud.stream.bindings.input1.content-type: 设置输入通道MIME类型
 spring.cloud.stream.kafka.binder.brokers: 配置kafka地址
-…</div></blockquote>
+...
+</pre></div>
+</div>
 </div>
 <div class="section" id="id3">
 <h1>3. 核心概念<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
